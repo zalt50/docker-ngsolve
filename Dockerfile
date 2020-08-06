@@ -18,14 +18,23 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository universe
 RUN add-apt-repository ppa:ngsolve/nightly -y
 RUN apt-get install ngsolve -y
+RUN apt-get install npm nodejs -y
         
 RUN apt-get install -y cmake git python3-pip
 RUN pip3 install --no-cache-dir notebook==5.*
-            
-USER root
+RUN pip3 install --no-cache-dir jupyterlab
+RUN pip3 install --no-cache-dir numpy scipy matplotlib
+RUN pip3 install --no-cache-dir ipywidgets
+                    
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
+RUN jupyter nbextension install --py widgetsnbextension
+RUN jupyter nbextension enable --py widgetsnbextension
+RUN jupyter nbextension install --user --py ngsolve
+RUN jupyter nbextension enable --user --py ngsolve
+USER root
+RUN jupyter labextension install --clean /usr/lib/python3/dist-packages/ngsolve/labextension
+USER ${NB_USER}
+
 WORKDIR /home/jovyan
-RUN pip3 install --user numpy scipy matplotlib
-                
