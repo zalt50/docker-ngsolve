@@ -26,5 +26,6 @@ USER root
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
-                
+WORKDIR /home/jovyan
+RUN pip3 install --user numpy scipy matplotlib
                 
