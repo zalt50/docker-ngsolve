@@ -20,6 +20,7 @@ RUN add-apt-repository ppa:ngsolve/nightly -y
 RUN apt-get install ngsolve -y
 RUN apt-get install npm nodejs -y
         
+RUN apt-get install vim emacs -y
 RUN apt-get install -y cmake git python3-pip
 RUN pip3 install --no-cache-dir notebook==5.*
 RUN pip3 install --no-cache-dir jupyterlab
