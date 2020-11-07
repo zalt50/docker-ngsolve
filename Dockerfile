@@ -26,6 +26,7 @@ RUN pip3 install --no-cache-dir notebook==5.*
 RUN pip3 install --no-cache-dir jupyterlab
 RUN pip3 install --no-cache-dir numpy scipy matplotlib
 RUN pip3 install --no-cache-dir ipywidgets
+RUN pip3 install --no-cache-dir psutil pytest
                     
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
