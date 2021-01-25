@@ -37,7 +37,7 @@ RUN jupyter nbextension install --user --py ngsolve
 RUN jupyter nbextension enable --user --py ngsolve
         
 USER root
-RUN jupyter labextension install --clean /usr/lib/python3/dist-packages/ngsolve/labextension
+#RUN jupyter labextension install --clean /usr/lib/python3/dist-packages/ngsolve/labextension
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
