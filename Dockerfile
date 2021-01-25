@@ -12,7 +12,9 @@ RUN adduser --disabled-password \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER}
-                
+
+        
+RUN apt-get update
 RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository universe
