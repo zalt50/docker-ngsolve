@@ -42,4 +42,4 @@ RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
 WORKDIR /home/${NB_USER}
-python3 -c "import ngsolve"        
+RUN python3 -c "import ngsolve"        
