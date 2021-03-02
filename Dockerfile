@@ -13,8 +13,6 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 
-RUN echo "trigger rebuild"
-        
 RUN apt-get update
 RUN apt-get update
 RUN apt-get install -y software-properties-common
