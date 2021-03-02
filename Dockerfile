@@ -1,7 +1,9 @@
 FROM ubuntu:latest
 
 WORKDIR /home/app
-        
+
+RUN echo "trigger rebuild again"        
+                
 ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}
