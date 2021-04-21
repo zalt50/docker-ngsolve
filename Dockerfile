@@ -34,11 +34,9 @@ RUN pip3 install --no-cache-dir psutil pytest
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
-RUN pip3 install webgui_jupyter_widgets
-RUN jupyter nbextension install --py widgetsnbextension
-RUN jupyter nbextension enable --py widgetsnbextension
-RUN jupyter nbextension install --user --py ngsolve
-RUN jupyter nbextension enable --user --py ngsolve
+RUN pip3 install --user webgui_jupyter_widgets
+RUN jupyter nbextension install --user --py webgui_jupyter_widgets
+RUN jupyter nbextension enable --user --py webgui_jupyter_widgets
         
 USER root
 #RUN jupyter labextension install --clean /usr/lib/python3/dist-packages/ngsolve/labextension
