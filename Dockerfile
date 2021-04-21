@@ -34,6 +34,7 @@ RUN pip3 install --no-cache-dir psutil pytest
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
+RUN pip3 install webgui_jupyter_widgets
 RUN jupyter nbextension install --py widgetsnbextension
 RUN jupyter nbextension enable --py widgetsnbextension
 RUN jupyter nbextension install --user --py ngsolve
