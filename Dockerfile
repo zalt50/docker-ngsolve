@@ -2,8 +2,8 @@ FROM ubuntu:latest
 
 WORKDIR /home/app
 
-RUN echo "trigger rebuild again for 2103!!"        
-                
+RUN echo "trigger rebuild again for 2103!!"
+
 ARG NB_USER=jovyan
 ARG NB_UID=1000
 ENV USER ${NB_USER}
@@ -15,29 +15,44 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 
-RUN apt-get update
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository universe
-RUN add-apt-repository ppa:ngsolve/nightly -y
-RUN apt-get install ngsolve -y
-RUN apt-get install npm nodejs -y
-        
-RUN apt-get install vim emacs -y
-RUN apt-get install -y cmake git python3-pip
-RUN pip3 install --no-cache-dir notebook==5.*
-RUN pip3 install --no-cache-dir jupyterlab
-RUN pip3 install --no-cache-dir numpy scipy matplotlib
-RUN pip3 install --no-cache-dir ipywidgets
-RUN pip3 install --no-cache-dir psutil pytest
-                    
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+    software-properties-common && \
+    add-apt-repository -y universe && \
+    add-apt-repository -y ppa:ngsolve/nightly && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+    ngsolve \
+    npm \
+    nodejs \
+    vim \
+    emacs \
+    cmake \
+    git \
+    python3-pip && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir \
+    notebook==5.* \
+    jupyterlab \
+    numpy \
+    scipy \
+    matplotlib \
+    ipywidgets \
+    psutil \
+    pytest
+
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
 
 RUN pip3 install --user webgui_jupyter_widgets
 RUN jupyter nbextension install --user --py webgui_jupyter_widgets
 RUN jupyter nbextension enable --user --py webgui_jupyter_widgets
-        
+
 USER root
 #RUN jupyter labextension install --clean /usr/lib/python3/dist-packages/ngsolve/labextension
 RUN chown -R ${NB_UID} ${HOME}
@@ -49,7 +64,7 @@ ENTRYPOINT ["/usr/bin/tini", "--"]
 USER ${NB_USER}
 
 WORKDIR /home/${NB_USER}
-RUN python3 -c "import ngsolve"   
+RUN python3 -c "import ngsolve"
 
 
 CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root" ]
