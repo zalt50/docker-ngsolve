@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 WORKDIR /home/app
 
 ARG NB_USER=jovyan
